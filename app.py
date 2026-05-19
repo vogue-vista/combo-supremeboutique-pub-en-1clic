@@ -1,80 +1,46 @@
 import streamlit as st
 
-
-
 # --- STYLE PREMIUM ---
 st.markdown("""
 <style>
-
-body {
-    background-color: #ffffff;
-}
-
-.hero-container {
+.hero {
     text-align: center;
     padding-top: 120px;
     padding-bottom: 80px;
 }
-
 .hero-title {
-    font-size: 64px;
+    font-size: 60px;
     font-weight: 900;
-    color: #111;
-    margin-bottom: 10px;
 }
-
 .hero-sub {
     font-size: 22px;
     color: #555;
     margin-bottom: 50px;
 }
-
-.big-button {
-    background: linear-gradient(135deg, #4A6CF7, #6A8BFF);
-    color: white;
-    padding: 28px 50px;
-    border-radius: 14px;
+.big-btn {
     font-size: 30px;
     font-weight: 800;
+    padding: 25px 40px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #4A6CF7, #6A8BFF);
+    color: white;
     text-decoration: none;
     display: inline-block;
-    transition: 0.25s;
     box-shadow: 0px 8px 20px rgba(74,108,247,0.35);
 }
-
-.big-button:hover {
+.big-btn:hover {
     transform: scale(1.05);
-    box-shadow: 0px 12px 28px rgba(74,108,247,0.55);
 }
-
-.footer {
-    text-align: center;
-    margin-top: 120px;
-    color: #999;
-    font-size: 14px;
-}
-
 </style>
 """, unsafe_allow_html=True)
 
-# --- HERO SECTION ---
+# --- HERO ---
 st.markdown("""
-<div class="hero-container">
+<div class="hero">
     <div class="hero-title">🚀 IA Business Suite</div>
-    <div class="hero-sub">Génère une boutique complète + un pack publicitaire en un seul clic.</div>
+    <div class="hero-sub">Crée une boutique complète + un pack publicitaire en un clic.</div>
 </div>
 """, unsafe_allow_html=True)
 
 # --- GROS BOUTON ---
-clicked = st.button("✨ Lancer le Générateur IA", key="cta", use_container_width=False)
-
-if clicked:
-    st.switch_page("pages/1_🚀_Boutique_et_Pubs_IA.py")
-
-# --- FOOTER ---
-st.markdown("""
-<div class="footer">
-    © 2026 – IA Business Suite • Propulsé par l’IA
-</div>
-""", unsafe_allow_html=True)
-
+st.page_link("pages/1_Boutique_Pubs.py", label="✨ Lancer le Générateur IA", icon="🚀")
