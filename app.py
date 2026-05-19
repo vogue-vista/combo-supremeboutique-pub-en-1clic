@@ -8,71 +8,76 @@ if "connecte" not in st.session_state or st.session_state.connecte is False:
 # --- STYLE PREMIUM ---
 st.markdown("""
 <style>
-.hero-title {
-    text-align: center;
-    font-size: 60px;
-    font-weight: 900;
-    margin-top: 20px;
+
+body {
+    background-color: #ffffff;
 }
-.hero-sub {
+
+.hero-container {
     text-align: center;
+    padding-top: 120px;
+    padding-bottom: 80px;
+}
+
+.hero-title {
+    font-size: 64px;
+    font-weight: 900;
+    color: #111;
+    margin-bottom: 10px;
+}
+
+.hero-sub {
     font-size: 22px;
     color: #555;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
 }
-.big-btn {
-    background-color: #4A6CF7;
+
+.big-button {
+    background: linear-gradient(135deg, #4A6CF7, #6A8BFF);
     color: white;
-    padding: 22px 40px;
-    border-radius: 12px;
-    font-size: 28px;
-    font-weight: 700;
+    padding: 28px 50px;
+    border-radius: 14px;
+    font-size: 30px;
+    font-weight: 800;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.25s;
+    box-shadow: 0px 8px 20px rgba(74,108,247,0.35);
+}
+
+.big-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 12px 28px rgba(74,108,247,0.55);
+}
+
+.footer {
     text-align: center;
-    display: block;
-    margin: auto;
-    width: 70%;
-    transition: 0.2s;
+    margin-top: 120px;
+    color: #999;
+    font-size: 14px;
 }
-.big-btn:hover {
-    background-color: #3a56c9;
-    transform: scale(1.03);
-}
-.pricing-box {
-    padding: 25px;
-    border-radius: 15px;
-    background: #f8f9fc;
-    border: 1px solid #e5e7eb;
-    text-align: center;
-    margin-top: 40px;
-}
-.price {
-    font-size: 48px;
-    font-weight: 900;
-    color: #4A6CF7;
-}
+
 </style>
 """, unsafe_allow_html=True)
 
-# --- HEADER ---
-st.markdown("<div class='hero-title'>🚀 IA Business Suite</div>", unsafe_allow_html=True)
-st.markdown("<div class='hero-sub'>Crée des boutiques complètes + publicités IA en un clic.</div>", unsafe_allow_html=True)
-
-# --- GROS BOUTON ---
-if st.button("✨ Accéder au Générateur Boutique + Pubs IA", key="go", help="Clique pour ouvrir le module IA"):
-    st.switch_page("pages/1_🚀_Boutique_et_Pubs_IA.py")
-
-# --- SECTION ABONNEMENT ---
+# --- HERO SECTION ---
 st.markdown("""
-<div class="pricing-box">
-    <h2>💳 Abonnement PRO</h2>
-    <p class="price">30 $ / mois</p>
-    <p>Accès illimité à :</p>
-    <ul style="text-align:left; display:inline-block;">
-        <li>✔️ Générateur de boutique complet</li>
-        <li>✔️ Générateur de publicités IA</li>
-        <li>✔️ Analyse IA avancée</li>
-        <li>✔️ Export facile</li>
-        <li>✔️ Support prioritaire</li>
-    </ul>
+<div class="hero-container">
+    <div class="hero-title">🚀 IA Business Suite</div>
+    <div class="hero-sub">Génère une boutique complète + un pack publicitaire en un seul clic.</div>
 </div>
 """, unsafe_allow_html=True)
+
+# --- GROS BOUTON ---
+clicked = st.button("✨ Lancer le Générateur IA", key="cta", use_container_width=False)
+
+if clicked:
+    st.switch_page("pages/1_🚀_Boutique_et_Pubs_IA.py")
+
+# --- FOOTER ---
+st.markdown("""
+<div class="footer">
+    © 2026 – IA Business Suite • Propulsé par l’IA
+</div>
+""", unsafe_allow_html=True)
+
