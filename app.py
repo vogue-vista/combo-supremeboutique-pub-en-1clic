@@ -70,10 +70,18 @@ st.markdown("""
     margin-top: 20px;
 }
 
-.price {
+.price-big {
     font-size: 48px;
     font-weight: 900;
     color: #4A6CF7;
+    margin-bottom: 10px;
+}
+
+.price-small {
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+    margin-top: -10px;
 }
 
 .footer {
@@ -101,8 +109,11 @@ st.page_link("pages/1_Boutique_Pubs.py", label="✨ Lancer le Générateur IA", 
 st.markdown("""
 <div class="pricing-box">
     <h2>💳 Abonnement PRO</h2>
-    <p class="price">30 $ / mois</p>
-    <p>Accès illimité à :</p>
+
+    <div class="price-big">40 $ / mois</div>
+    <div class="price-small">+ 10 $ par boutique générée</div>
+
+    <p style="margin-top:20px;">Accès illimité à :</p>
     <ul style="text-align:left; display:inline-block; font-size:18px;">
         <li>✔️ Générateur de boutique complet</li>
         <li>✔️ Générateur de publicités IA</li>
