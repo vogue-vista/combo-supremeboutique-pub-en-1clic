@@ -1,9 +1,6 @@
 import streamlit as st
 
-# 🔒 Sécurité licence
-if "connecte" not in st.session_state or st.session_state.connecte is False:
-    st.error("⛔ Accès refusé. Veuillez activer votre licence.")
-    st.stop()
+
 
 # --- STYLE PREMIUM ---
 st.markdown("""
