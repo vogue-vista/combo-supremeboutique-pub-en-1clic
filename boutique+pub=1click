@@ -1,0 +1,178 @@
+import streamlit as st
+from groq import Groq
+
+# 🔒 Sécurité
+if "connecte" not in st.session_state or st.session_state.connecte is False:
+    st.error("⛔ Accès refusé. Veuillez activer votre licence.")
+    st.stop()
+
+st.title("🛒 Générateur de Boutique + Pubs IA (Combo PRO)")
+st.write("Génère une boutique complète + un pack de publicités IA pour ton produit.")
+
+# 🔑 Clé IA sécurisée
+try:
+    GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
+    client = Groq(api_key=GROQ_API_KEY)
+except:
+    st.error("❌ Clé GROQ_API_KEY manquante dans les secrets Streamlit.")
+    st.stop()
+
+# --- Interface produit ---
+st.subheader("🧩 Informations sur le produit")
+
+col1, col2 = st.columns(2)
+with col1:
+    nom_produit = st.text_input("Nom du produit")
+    marque = st.text_input("Nom de la marque (facultatif)")
+    prix = st.text_input("Prix de vente (ex: 39,99 $)")
+with col2:
+    public_cible = st.text_input("Public cible (ex: femmes 25–35, sportifs, parents, etc.)")
+    niche = st.text_input("Niche / marché (ex: beauté, fitness, maison, animaux, etc.)")
+    plateforme = st.selectbox("Plateforme principale", ["Shopify", "WooCommerce", "Amazon", "Etsy", "Autre"])
+
+benefices = st.text_area("Bénéfices / caractéristiques principales du produit")
+ton = st.selectbox("Ton global de la marque", ["Professionnel", "Amical", "Luxe", "Fun", "Éducatif", "Premium émotionnel"])
+
+st.markdown("---")
+st.subheader("🎯 Objectif marketing principal")
+objectif = st.selectbox(
+    "Objectif principal",
+    [
+        "Lancer un nouveau produit",
+        "Augmenter le taux de conversion",
+        "Tester un nouveau créatif",
+        "Relancer un produit qui ne vend plus",
+        "Créer une offre irrésistible"
+    ]
+)
+
+st.markdown("---")
+
+# --- Bouton principal ---
+if st.button("Générer la boutique + les pubs IA"):
+    if not nom_produit or not benefices or not public_cible:
+        st.error("Nom du produit, bénéfices et public cible sont obligatoires.")
+    else:
+        with st.spinner("🧠 Génération IA en cours..."):
+
+            # -------- 1) Génération de la boutique --------
+            prompt_boutique = f"""
+Tu es un expert en copywriting e-commerce et en UX Shopify.
+
+Génère le contenu complet d'une boutique pour ce produit.
+
+Données :
+- Nom du produit : {nom_produit}
+- Marque : {marque}
+- Prix : {prix}
+- Public cible : {public_cible}
+- Niche : {niche}
+- Plateforme : {plateforme}
+- Bénéfices : {benefices}
+- Ton : {ton}
+- Objectif : {objectif}
+
+Structure demandée (en français) :
+
+1) Page d'accueil :
+   - Titre principal
+   - Sous-titre
+   - Section "Pourquoi nous choisir ?"
+   - Section "Nos best-sellers" (inclure {nom_produit})
+   - Section "Avis clients" (3 avis fictifs crédibles)
+
+2) Page produit :
+   - Titre optimisé
+   - Description persuasive
+   - Bullet points des bénéfices
+   - Section "À qui s'adresse ce produit ?"
+   - Section "Pourquoi maintenant ?"
+
+3) Page À propos :
+   - Histoire de la marque
+   - Mission
+   - Valeurs
+   - Ton humain et authentique
+
+4) Page FAQ :
+   - 8 questions/réponses fréquentes (livraison, retours, garantie, utilisation, etc.)
+
+5) Politique de retour :
+   - Politique claire, rassurante, orientée client
+
+Donne un texte structuré avec des titres clairs, prêt à être copié-collé dans Shopify ou WooCommerce.
+"""
+
+            try:
+                chat_boutique = client.chat.completions.create(
+                    model="llama-3.1-8b-instant",
+                    messages=[
+                        {"role": "system", "content": "Tu es un expert en copywriting e-commerce et en UX Shopify."},
+                        {"role": "user", "content": prompt_boutique}
+                    ],
+                    temperature=0.6,
+                    max_tokens=2000
+                )
+                texte_boutique = chat_boutique.choices[0].message.content
+            except Exception as e:
+                texte_boutique = f"Erreur lors de la génération de la boutique : {e}"
+
+            # -------- 2) Génération des pubs IA --------
+            prompt_pubs = f"""
+Tu es un expert en publicité Facebook Ads, TikTok Ads et Google Ads.
+
+Génère un pack complet de publicités pour ce produit.
+
+Données :
+- Nom du produit : {nom_produit}
+- Marque : {marque}
+- Prix : {prix}
+- Public cible : {public_cible}
+- Niche : {niche}
+- Bénéfices : {benefices}
+- Ton : {ton}
+- Objectif : {objectif}
+
+Donne :
+
+1) 3 hooks TikTok (courts, percutants)
+2) 2 scripts vidéo UGC (30-45 secondes) avec structure :
+   - Hook
+   - Problème
+   - Solution (le produit)
+   - Preuve sociale
+   - Call to action
+
+3) 3 textes Facebook Ads :
+   - 1 version courte
+   - 1 version moyenne
+   - 1 version longue
+
+4) 5 titres Google Ads (max 30 caractères)
+5) 3 descriptions Google Ads (max 90 caractères)
+
+Réponds en français, bien structuré, avec des titres pour chaque section.
+"""
+
+            try:
+                chat_pubs = client.chat.completions.create(
+                    model="llama-3.1-8b-instant",
+                    messages=[
+                        {"role": "system", "content": "Tu es un expert en publicité Facebook, TikTok et Google Ads."},
+                        {"role": "user", "content": prompt_pubs}
+                    ],
+                    temperature=0.7,
+                    max_tokens=2000
+                )
+                texte_pubs = chat_pubs.choices[0].message.content
+            except Exception as e:
+                texte_pubs = f"Erreur lors de la génération des publicités : {e}"
+
+        # -------- Affichage des résultats --------
+        st.markdown("---")
+        st.subheader("🛍️ Contenu de la boutique généré")
+        st.write(texte_boutique)
+
+        st.markdown("---")
+        st.subheader("📣 Pack de publicités IA généré")
+        st.write(texte_pubs)
