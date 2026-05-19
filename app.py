@@ -1,4 +1,22 @@
 import streamlit as st
+# --- HIDE SIDEBAR ---
+st.markdown("""
+    <style>
+        [data-testid="stSidebar"] {
+            display: none;
+        }
+        [data-testid="stSidebarNav"] {
+            display: none;
+        }
+        [data-testid="stSidebarUserContent"] {
+            display: none;
+        }
+        .block-container {
+            padding-top: 0rem;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 
 # --- STYLE PREMIUM ---
 st.markdown("""
