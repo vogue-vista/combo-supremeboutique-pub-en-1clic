@@ -1,4 +1,5 @@
 import streamlit as st
+
 # --- HIDE SIDEBAR ---
 st.markdown("""
     <style>
@@ -17,42 +18,75 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-
 # --- STYLE PREMIUM ---
 st.markdown("""
 <style>
+
 .hero {
     text-align: center;
     padding-top: 120px;
-    padding-bottom: 80px;
+    padding-bottom: 40px;
 }
+
 .hero-title {
     font-size: 60px;
     font-weight: 900;
+    color: #111;
 }
+
 .hero-sub {
     font-size: 22px;
     color: #555;
     margin-bottom: 50px;
 }
+
 .big-btn {
-    font-size: 30px;
-    font-weight: 800;
-    padding: 25px 40px;
-    border-radius: 14px;
     background: linear-gradient(135deg, #4A6CF7, #6A8BFF);
     color: white;
+    padding: 28px 50px;
+    border-radius: 14px;
+    font-size: 30px;
+    font-weight: 800;
     text-decoration: none;
     display: inline-block;
+    transition: 0.25s;
     box-shadow: 0px 8px 20px rgba(74,108,247,0.35);
+    margin-bottom: 40px;
 }
+
 .big-btn:hover {
     transform: scale(1.05);
+    box-shadow: 0px 12px 28px rgba(74,108,247,0.55);
 }
+
+.pricing-box {
+    padding: 25px;
+    border-radius: 15px;
+    background: #f8f9fc;
+    border: 1px solid #e5e7eb;
+    text-align: center;
+    width: 60%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.price {
+    font-size: 48px;
+    font-weight: 900;
+    color: #4A6CF7;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 80px;
+    color: #999;
+    font-size: 14px;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
-# --- HERO ---
+# --- HERO SECTION ---
 st.markdown("""
 <div class="hero">
     <div class="hero-title">🚀 IA Business Suite</div>
@@ -62,3 +96,26 @@ st.markdown("""
 
 # --- GROS BOUTON ---
 st.page_link("pages/1_Boutique_Pubs.py", label="✨ Lancer le Générateur IA", icon="🚀")
+
+# --- SECTION ABONNEMENT ---
+st.markdown("""
+<div class="pricing-box">
+    <h2>💳 Abonnement PRO</h2>
+    <p class="price">30 $ / mois</p>
+    <p>Accès illimité à :</p>
+    <ul style="text-align:left; display:inline-block; font-size:18px;">
+        <li>✔️ Générateur de boutique complet</li>
+        <li>✔️ Générateur de publicités IA</li>
+        <li>✔️ Analyse IA avancée</li>
+        <li>✔️ Export facile</li>
+        <li>✔️ Support prioritaire</li>
+    </ul>
+</div>
+""", unsafe_allow_html=True)
+
+# --- FOOTER ---
+st.markdown("""
+<div class="footer">
+    © 2026 – IA Business Suite • Propulsé par l’IA
+</div>
+""", unsafe_allow_html=True)
