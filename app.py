@@ -37,7 +37,6 @@ st.title("🚀 IA Business Suite")
 st.subheader("Crée une boutique complète + un pack publicitaire en un clic.")
 
 st.write("")
-st.write("")
 
 # Bouton IA
 if st.session_state["premium"]:
@@ -46,8 +45,30 @@ else:
     st.button("🔒 Lancer le Générateur IA (Premium requis)", disabled=True)
 
 st.write("")
-st.write("")
 
 # Bouton S'abonner (PayPal)
 paypal_url = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TON_ID_PAYPAL_ICI"
+
+st.markdown(f"### 👉 [💳 S’abonner maintenant]({paypal_url})")
+
+st.write("---")
+
+# Section abonnement
+st.header("💳 Abonnement PRO")
+st.write("### **50 $ / mois**")
+st.write("### **+ 10 $ par boutique générée**")
+
+st.write("""
+Avec l’abonnement PRO, vous obtenez :
+
+- Générateur de boutique complet  
+- Générateur de publicités IA  
+- Analyse IA avancée  
+- Export facile  
+- Support prioritaire  
+""")
+
+st.write("---")
+
+st.caption("© 2026 – IA Business Suite • Propulsé par l’IA")
 
