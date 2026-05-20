@@ -1,88 +1,76 @@
 import streamlit as st
-from groq import Groq
-import json
 import os
+import json
 
-if "boutiques" not in st.session_state:
-    st.session_state["boutiques"] = []
+# -------------------------
+# SUPPRIMER LA SIDEBAR
+# -------------------------
+st.markdown("""
+<style>
+[data-testid="stSidebar"] {display: none;}
+[data-testid="stSidebarNav"] {display: none;}
+[data-testid="stSidebarUserContent"] {display: none;}
+</style>
+""", unsafe_allow_html=True)
 
-# Quand la boutique est générée :
-st.session_state["boutiques"].append({
-    "nom": nom,
-    "description": description,
-    "style": style,
-    "prix": prix,
-    "image": image_url
-})
+# -------------------------
+# POLICE PRO (Poppins)
+# -------------------------
+st.markdown("""
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+html, body, div, p, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
-with open("boutiques.json", "w") as f:
-    json.dump(st.session_state["boutiques"], f)
+# -------------------------
+# PAGE
+# -------------------------
 
+st.title("🛍️ Générateur de Boutique IA")
+st.subheader("Remplissez les informations ci-dessous pour générer votre boutique complète.")
 
-# 🔒 Sécurité
-if "connecte" not in st.session_state or st.session_state.connecte is False:
-    st.error("⛔ Accès refusé. Veuillez activer votre licence.")
-    st.stop()
+st.write("")
 
-st.title("🛒 Générateur Boutique + Pubs IA (PRO)")
-if st.button("Générer la boutique"):
+# Champs utilisateur
+nom = st.text_input("Nom du produit")
+description = st.text_area("Description du produit")
+style = st.selectbox("Style de la boutique", ["Moderne", "Luxe", "Minimaliste", "Coloré"])
+
+prix = st.text_input("Prix (optionnel)")
+image_url = st.text_input("Image du produit (optionnel)")
+
+st.write("")
+
+# Bouton de génération
+if st.button("✨ Générer la boutique"):
     if not nom or not description:
         st.error("Veuillez remplir au moins le nom et la description.")
     else:
-        # Appel à ton IA ici
-        st.success("Boutique générée avec succès !")
+        # Création de la boutique
+        boutique = {
+            "nom": nom,
+            "description": description,
+            "style": style,
+            "prix": prix,
+            "image": image_url
+        }
 
+        # Charger anciennes boutiques
+        if os.path.exists("boutiques.json"):
+            with open("boutiques.json", "r") as f:
+                data = json.load(f)
+        else:
+            data = []
 
-# 🔑 Clé IA
-client = Groq(api_key=st.secrets["GROQ_API_KEY"])
+        # Ajouter la nouvelle boutique
+        data.append(boutique)
 
-# --- FORMULAIRE ---
-nom = st.text_input("Nom du produit")
-public = st.text_input("Public cible")
-benefices = st.text_area("Bénéfices")
-ton = st.selectbox("Ton", ["Professionnel", "Amical", "Luxe", "Fun"])
+        # Sauvegarder
+        with open("boutiques.json", "w") as f:
+            json.dump(data, f)
 
-generate = st.button("✨ Générer Boutique + Pubs IA", use_container_width=True)
-
-if generate:
-    if not nom or not public or not benefices:
-        st.error("Veuillez remplir tous les champs.")
-        st.stop()
-
-    with st.spinner("🧠 IA en cours..."):
-
-        # Boutique
-        prompt_boutique = f"""
-Crée une boutique complète pour :
-Produit : {nom}
-Public : {public}
-Bénéfices : {benefices}
-Ton : {ton}
-"""
-
-        boutique = client.chat.completions.create(
-            model="llama-3.1-8b-instant",
-            messages=[{"role": "user", "content": prompt_boutique}],
-            max_tokens=1500
-        ).choices[0].message.content
-
-        # Pubs
-        prompt_pubs = f"""
-Génère un pack publicitaire complet pour :
-Produit : {nom}
-Public : {public}
-Ton : {ton}
-"""
-
-        pubs = client.chat.completions.create(
-            model="llama-3.1-8b-instant",
-            messages=[{"role": "user", "content": prompt_pubs}],
-            max_tokens=1500
-        ).choices[0].message.content
-
-    st.subheader("🛍️ Boutique IA")
-    st.write(boutique)
-
-    st.subheader("📣 Publicités IA")
-    st.write(pubs)
-
+        st.success("🎉 Boutique générée avec succès !")
+        st.write("Votre boutique a été ajoutée à votre liste.")
