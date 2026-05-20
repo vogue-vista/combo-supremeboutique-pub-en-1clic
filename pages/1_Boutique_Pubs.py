@@ -7,6 +7,13 @@ if "connecte" not in st.session_state or st.session_state.connecte is False:
     st.stop()
 
 st.title("🛒 Générateur Boutique + Pubs IA (PRO)")
+if st.button("Générer la boutique"):
+    if not nom or not description:
+        st.error("Veuillez remplir au moins le nom et la description.")
+    else:
+        # Appel à ton IA ici
+        st.success("Boutique générée avec succès !")
+
 
 # 🔑 Clé IA
 client = Groq(api_key=st.secrets["GROQ_API_KEY"])
