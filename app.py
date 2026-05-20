@@ -2,23 +2,26 @@ import streamlit as st
 import os
 import json
 
-# Détection du code secret dans l'URL
+# -------------------------
+# DÉTECTION DU CODE PAYPAL (déblocage automatique)
+# -------------------------
 params = st.query_params
 if "code" in params and params["code"] == "ABONNE2024":
     st.session_state["premium"] = True
-    # Si premium est désactivé → supprimer les boutiques
+
+# -------------------------
+# INITIALISATION PREMIUM
+# -------------------------
+if "premium" not in st.session_state:
+    st.session_state["premium"] = False
+
+# -------------------------
+# SUPPRESSION DES BOUTIQUES SI NON PREMIUM
+# -------------------------
 if not st.session_state["premium"]:
     if os.path.exists("boutiques.json"):
         os.remove("boutiques.json")
     st.session_state["boutiques"] = []
-
-
-
-# -------------------------
-# SIMULATION DU PAIEMENT
-# -------------------------
-if "premium" not in st.session_state:
-    st.session_state["premium"] = False
 
 # -------------------------
 # SUPPRIMER LA SIDEBAR
@@ -32,7 +35,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # -------------------------
-# POLICE PRO
+# POLICE PRO (Poppins)
 # -------------------------
 st.markdown("""
 <style>
@@ -44,7 +47,7 @@ html, body, div, p, h1, h2, h3, h4, h5, h6 {
 """, unsafe_allow_html=True)
 
 # -------------------------
-# CONTENU
+# CONTENU PRINCIPAL
 # -------------------------
 
 st.title("🚀 IA Business Suite")
@@ -60,16 +63,14 @@ else:
 
 st.write("")
 
-# Bouton S'abonner (PayPal)
+# Bouton PayPal
 paypal_url = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TON_ID_PAYPAL_ICI"
-
 st.markdown(f"### 👉 [💳 S’abonner maintenant]({paypal_url})")
 
 st.write("---")
 
 # Section abonnement
 st.header("💳 Abonnement PRO")
-
 st.write("### **50 $ / mois**")
 
 st.write("""
@@ -81,7 +82,9 @@ Avec l’abonnement PRO, vous obtenez :
 - Export facile  
 - Support prioritaire  
 """)
-st.warning("⚠️ Si vous annulez votre abonnement, toutes vos boutiques seront supprimées. Vous gardez l'argent gagné, mais vous perdez l'accès au générateur.")
 
+st.warning("⚠️ Si vous annulez votre abonnement, toutes vos boutiques seront supprimées. Vous gardez l'argent gagné.")
 
+st.write("---")
 
+st.caption("© 2026 – IA Business Suite • Propulsé par l’IA")
