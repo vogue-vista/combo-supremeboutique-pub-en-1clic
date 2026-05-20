@@ -1,4 +1,9 @@
 import streamlit as st
+# Détection du code secret dans l'URL
+params = st.query_params
+if "code" in params and params["code"] == "ABONNE2024":
+    st.session_state["premium"] = True
+
 
 # -------------------------
 # SIMULATION DU PAIEMENT
