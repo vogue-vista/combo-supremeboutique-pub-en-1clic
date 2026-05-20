@@ -3,6 +3,12 @@ import streamlit as st
 params = st.query_params
 if "code" in params and params["code"] == "ABONNE2024":
     st.session_state["premium"] = True
+    # Si premium est désactivé → supprimer les boutiques
+if not st.session_state["premium"]:
+    if os.path.exists("boutiques.json"):
+        os.remove("boutiques.json")
+    st.session_state["boutiques"] = []
+
 
 
 # -------------------------
