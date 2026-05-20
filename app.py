@@ -1,4 +1,7 @@
 import streamlit as st
+import os
+import json
+
 # Détection du code secret dans l'URL
 params = st.query_params
 if "code" in params and params["code"] == "ABONNE2024":
