@@ -49,4 +49,5 @@ st.write("")
 st.write("")
 
 # Bouton S'abonner (PayPal)
-paypal_url = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button
+paypal_url = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TON_ID_PAYPAL_ICI"
+
