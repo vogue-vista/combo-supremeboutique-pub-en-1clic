@@ -149,11 +149,13 @@ else:
     st.button("🔒 Lancer le Générateur IA (Premium requis)", disabled=True)
 
 # -------------------------
-# BOUTON S'ABONNER
+# BOUTON S'ABONNER (PAYPAL)
 # -------------------------
-st.markdown("""
+paypal_url = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TON_ID_PAYPAL_ICI"
+
+st.markdown(f"""
 <div style="text-align:center;">
-    <a href="#" class="sub-btn">💳 S’abonner maintenant</a>
+    <a href="{paypal_url}" target="_blank" class="sub-btn">💳 S’abonner maintenant</a>
 </div>
 """, unsafe_allow_html=True)
 
@@ -164,7 +166,7 @@ st.markdown("""
 <div class="pricing-box">
     <h2>💳 Abonnement PRO</h2>
 
-    <div class="price-big">40 $ / mois</div>
+    <div class="price-big">50 $ / mois</div>
     <div class="price-small">+ 10 $ par boutique générée</div>
 
     <p style="margin-top:20px;">Accès illimité à :</p>
