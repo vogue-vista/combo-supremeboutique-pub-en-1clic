@@ -1,5 +1,23 @@
 import streamlit as st
 from groq import Groq
+import json
+import os
+
+if "boutiques" not in st.session_state:
+    st.session_state["boutiques"] = []
+
+# Quand la boutique est générée :
+st.session_state["boutiques"].append({
+    "nom": nom,
+    "description": description,
+    "style": style,
+    "prix": prix,
+    "image": image_url
+})
+
+with open("boutiques.json", "w") as f:
+    json.dump(st.session_state["boutiques"], f)
+
 
 # 🔒 Sécurité
 if "connecte" not in st.session_state or st.session_state.connecte is False:
