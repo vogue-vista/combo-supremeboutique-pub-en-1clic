@@ -75,6 +75,26 @@ st.markdown("""
     box-shadow: 0px 12px 28px rgba(74,108,247,0.55);
 }
 
+.sub-btn {
+    background: #ffffff;
+    border: 2px solid #4A6CF7;
+    color: #4A6CF7;
+    padding: 18px 40px;
+    border-radius: 12px;
+    font-size: 24px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.25s;
+    margin-top: 10px;
+}
+
+.sub-btn:hover {
+    background: #4A6CF7;
+    color: white;
+    transform: scale(1.05);
+}
+
 .pricing-box {
     padding: 25px;
     border-radius: 15px;
@@ -121,13 +141,21 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # -------------------------
-# BOUTON AVEC VERROU SI NON PAYÉ
+# BOUTON IA (VERROUILLÉ SI NON PAYÉ)
 # -------------------------
 if st.session_state["premium"]:
     st.page_link("pages/1_Boutique_Pubs.py", label="✨ Lancer le Générateur IA", icon="🚀")
 else:
     st.button("🔒 Lancer le Générateur IA (Premium requis)", disabled=True)
-    st.info("Pour générer une boutique, vous devez activer l'abonnement PRO.")
+
+# -------------------------
+# BOUTON S'ABONNER
+# -------------------------
+st.markdown("""
+<div style="text-align:center;">
+    <a href="#" class="sub-btn">💳 S’abonner maintenant</a>
+</div>
+""", unsafe_allow_html=True)
 
 # -------------------------
 # SECTION ABONNEMENT
