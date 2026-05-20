@@ -55,8 +55,8 @@ st.write("---")
 
 # Section abonnement
 st.header("💳 Abonnement PRO")
+
 st.write("### **50 $ / mois**")
-st.write("### **+ 10 $ par boutique générée**")
 
 st.write("""
 Avec l’abonnement PRO, vous obtenez :
@@ -68,7 +68,4 @@ Avec l’abonnement PRO, vous obtenez :
 - Support prioritaire  
 """)
 
-st.write("---")
-
-st.caption("© 2026 – IA Business Suite • Propulsé par l’IA")
 
