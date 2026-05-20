@@ -1,34 +1,40 @@
 import streamlit as st
+
+# -------------------------
+# SIMULATION DU PAIEMENT
+# -------------------------
+# Mets True pour tester l'accès premium
+if "premium" not in st.session_state:
+    st.session_state["premium"] = False
+
+# -------------------------
+# HIDE SIDEBAR
+# -------------------------
+st.markdown("""
+<style>
+[data-testid="stSidebar"] {display: none;}
+[data-testid="stSidebarNav"] {display: none;}
+[data-testid="stSidebarUserContent"] {display: none;}
+.block-container {padding-top: 0rem;}
+</style>
+""", unsafe_allow_html=True)
+
+# -------------------------
+# POLICE PREMIUM
+# -------------------------
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap');
 
-html, body, [class*="css"]  {
+html, body, div, span, p, h1, h2, h3, h4, h5, h6, button, label {
     font-family: 'Poppins', sans-serif !important;
 }
 </style>
 """, unsafe_allow_html=True)
 
-
-# --- HIDE SIDEBAR ---
-st.markdown("""
-    <style>
-        [data-testid="stSidebar"] {
-            display: none;
-        }
-        [data-testid="stSidebarNav"] {
-            display: none;
-        }
-        [data-testid="stSidebarUserContent"] {
-            display: none;
-        }
-        .block-container {
-            padding-top: 0rem;
-        }
-    </style>
-""", unsafe_allow_html=True)
-
-# --- STYLE PREMIUM ---
+# -------------------------
+# STYLE GLOBAL
+# -------------------------
 st.markdown("""
 <style>
 
@@ -65,14 +71,14 @@ st.markdown("""
 }
 
 .big-btn:hover {
-    transform: scale(1.05);
+    transform: scale(1.07);
     box-shadow: 0px 12px 28px rgba(74,108,247,0.55);
 }
 
 .pricing-box {
     padding: 25px;
     border-radius: 15px;
-    background: #f8f9fc;
+    background: #ffffff;
     border: 1px solid #e5e7eb;
     text-align: center;
     width: 60%;
@@ -104,7 +110,9 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# --- HERO SECTION ---
+# -------------------------
+# HERO SECTION
+# -------------------------
 st.markdown("""
 <div class="hero">
     <div class="hero-title">🚀 IA Business Suite</div>
@@ -112,10 +120,18 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# --- GROS BOUTON ---
-st.page_link("pages/1_Boutique_Pubs.py", label="✨ Lancer le Générateur IA", icon="🚀")
+# -------------------------
+# BOUTON AVEC VERROU SI NON PAYÉ
+# -------------------------
+if st.session_state["premium"]:
+    st.page_link("pages/1_Boutique_Pubs.py", label="✨ Lancer le Générateur IA", icon="🚀")
+else:
+    st.button("🔒 Lancer le Générateur IA (Premium requis)", disabled=True)
+    st.info("Pour générer une boutique, vous devez activer l'abonnement PRO.")
 
-# --- SECTION ABONNEMENT ---
+# -------------------------
+# SECTION ABONNEMENT
+# -------------------------
 st.markdown("""
 <div class="pricing-box">
     <h2>💳 Abonnement PRO</h2>
@@ -134,7 +150,9 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# --- FOOTER ---
+# -------------------------
+# FOOTER
+# -------------------------
 st.markdown("""
 <div class="footer">
     © 2026 – IA Business Suite • Propulsé par l’IA
