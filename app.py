@@ -72,5 +72,7 @@ Avec l’abonnement PRO, vous obtenez :
 - Export facile  
 - Support prioritaire  
 """)
+st.warning("⚠️ Si vous annulez votre abonnement, toutes vos boutiques seront supprimées. Vous gardez l'argent gagné, mais vous perdez l'accès au générateur.")
+
 
 
